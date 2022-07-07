@@ -4,10 +4,10 @@ import {GIT_USER, ERROR_UPDATE} from '../context/GithubContext'
 const getUserApi: Function = (  username: String, dispatch: Function) => {
 
     const githubUrl = `https://api.github.com/users/${username}`
-    
+    const token = " "
     axios.get(githubUrl, {
           headers:{
-              "Authorization": "token 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"
+              "Authorization": `token ${token}`
           }
         })
         .then((response) => {
