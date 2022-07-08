@@ -6,6 +6,7 @@ import  MainComponent from './components/MainComponent'
 import './App.css';
 import theme from './theme'
 import { CssBaseline } from '@mui/material';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -15,7 +16,10 @@ function App() {
              path="/"
             element={  <Navigate to='/reactjs' /> }
         />
-
+        <Route
+             path="/error/404"
+            element={  <NotFound/> }
+        />
         <Route
             path="/error-page"
             element={ <div>error</div> }

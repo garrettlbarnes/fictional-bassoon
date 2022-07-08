@@ -3,18 +3,24 @@ import {FC} from "react";
 import {useGithubContext, GithubInitialState} from "../context/GithubContext";
 import { CardContent, Typography, CardHeader, Avatar, Link, Card, Box } from "@mui/material";
 import Loading from "./Loading";
+import {useNavigate} from 'react-router-dom'
+
 export const UserCard : FC = () => {
+    const navigate = useNavigate();
     const github:GithubInitialState  = useGithubContext();
     useEffect(() => {
         github.updateUserData && github.updateUserData()
     }, []);
-    if(!github.user){
+    if(!github.user||github.userCallStatus==404){
         //figure this out
-        return <div>404?</div>
+        
+            
+            navigate('/error/404');
+       
     }
 
     if(github.loading)
-        return <Loading/>
+        return <Card sx={root}><Loading/></Card>
 
 
     return <Card sx={root}>

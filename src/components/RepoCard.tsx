@@ -6,13 +6,15 @@ import { CardContent, Typography, CardHeader, Chip, Link, ListItem } from "@mui/
 import { styled } from "@mui/material/styles";
 const RepoCard = (repo: any) => {
 
+    
+
     return <ListItem sx={root} key={repo.full_name}>
         
         <Card sx={root} variant="outlined"  >
         <CardHeader sx={cheader} disableTypography={true} 
             title={ <Typography variant="h5" component="div" sx={title}>
                
-            <div>{repo.name}</div><div ><StarIcon sx={stars} color='warning' fontSize='large'></StarIcon><Typography sx={stars} variant="h5">{repo.stargazers_count} </Typography></div>
+            <Link href={repo.html_url} underline='hover' color="inherit">{repo.name}</Link><div ><StarIcon sx={stars} color='warning' fontSize='large'></StarIcon><Typography sx={stars} variant="h5">{repo.stargazers_count} </Typography></div>
         </Typography>}/>
         <CardContent >
         <Typography sx={text}variant="body2" component="div"  > {repo.description}</Typography>
@@ -67,6 +69,7 @@ const RepoCard = (repo: any) => {
         fontWeight: 'bold',
         paddingLeft: 2,
         paddingRight: 2,
+        paddingTop: 2,
         width: "100%",
         verticalAlign: 'middle',
         alignItems: 'center',

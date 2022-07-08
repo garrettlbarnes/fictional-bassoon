@@ -22,9 +22,9 @@ const getUserApi: Function = (  username: String, dispatch: Function) => {
   
   }; 
 
-  const getReposApi: Function = (  username: string, url:string,  dispatch: Function) => {
+  const getReposApi: Function = (  username: string, page: number = 1,  dispatch: Function) => {
 
-    const githubUrl = !url? `https://api.github.com/users/${username}/repos?per_page=${DEFAULT_PAGE_SIZE}`:url;
+    const githubUrl = `https://api.github.com/users/${username}/repos?per_page=${DEFAULT_PAGE_SIZE}&page=${page}`;
 
     const token = ""
     axios.get(githubUrl, {
