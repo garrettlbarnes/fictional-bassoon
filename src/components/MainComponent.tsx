@@ -3,7 +3,8 @@ import {  GitHubContextProvider } from "../context/GithubContext";
 import { ThemeProvider } from '@mui/material/styles';
 
 import { UserCard } from './UserCard'
-import theme from '../theme'
+
+import RepoList from "./RepoList";
 
 
 const MainComponent = () => {
@@ -12,7 +13,7 @@ const MainComponent = () => {
     
 
 
-    return <ThemeProvider theme={theme}><GitHubContextProvider><UserCard></UserCard></GitHubContextProvider> </ThemeProvider>
+    return <GitHubContextProvider><UserCard></UserCard><RepoList/></GitHubContextProvider> 
 }
 
 export default MainComponent;

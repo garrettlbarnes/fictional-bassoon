@@ -1,11 +1,13 @@
 import {useContext, createContext, useReducer, Reducer} from "react";
 import {useParams} from 'react-router-dom'
 
-import { getUserApi } from "../api/apiGitHub";
+import { getUserApi, getReposApi } from "../api/apiGitHub";
 
 export const GIT_USER: String = 'GIT_USER';
 export const UPDATE_LOADING = 'UPDATE_LOADING';
 export const ERROR_UPDATE = 'ERROR_UPDATE';
+export const GIT_REPOS = 'GIT_REPOS';
+
 
 export interface GithubInitialState {
   user?: any ,
@@ -14,10 +16,11 @@ export interface GithubInitialState {
   loading?: boolean ,
 
   updateUserData?: Function,
+  updateRepoData?: Function,
 } 
 export interface GithubAction {
   call: string,
-  data: any,
+  data?: any,
 }
 
 const GithubContext = createContext({});
@@ -34,17 +37,24 @@ const GitHubContextProvider = (props: any) => {
   
     const [state, dispatch] = useReducer(githubReducer, initialState);
   
-    const updateLoading = (val: boolean) =>{
-      dispatch({ call: UPDATE_LOADING, data: val })
+    const updateLoading = () =>{
+      dispatch({ call: UPDATE_LOADING })
     }
 
 
     const updateUserData = async () => {
 
-      updateLoading(true)
+      updateLoading()
       getUserApi(state.user, dispatch)
 
     }
+    const updateRepoData = async () => {
+
+        updateLoading()
+        getReposApi(state.user, null, dispatch)
+  
+      }
+    
 
     
 
@@ -57,7 +67,8 @@ const GitHubContextProvider = (props: any) => {
         userData: state.userData,
         repos: state.repos,
         loading: state.loading,
-        updateUserData
+        updateUserData,
+        updateRepoData,
       }}>
         {props.children}
       </GithubContext.Provider>
@@ -78,6 +89,15 @@ export const githubReducer: Reducer<GithubInitialState ,GithubAction > = (state,
       case GIT_USER: return {
           ...state,
           userData: action.data,
+          loading: false,
+        }
+      case UPDATE_LOADING: return {
+          ...state,
+          loading: true,
+        }
+      case GIT_REPOS: return {
+          ...state,
+          repos: action.data,
           loading: false,
         }
       default: {

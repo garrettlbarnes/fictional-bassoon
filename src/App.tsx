@@ -1,7 +1,11 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+
 import  MainComponent from './components/MainComponent'
 import './App.css';
+import theme from './theme'
+import { CssBaseline } from '@mui/material';
 
 function App() {
   return (
@@ -18,7 +22,7 @@ function App() {
         />
         <Route
             path="/:userId"
-            element={ <MainComponent/> }
+            element={ <ThemeProvider theme={theme}><MainComponent/><CssBaseline/></ThemeProvider> }
         />
     </Routes>
 </BrowserRouter>

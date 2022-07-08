@@ -2,7 +2,7 @@ import  { useEffect} from "react";
 import {FC} from "react";
 import {useGithubContext, GithubInitialState} from "../context/GithubContext";
 import { CardContent, Typography, CardHeader, Avatar, Link, Card, Box } from "@mui/material";
-
+import Loading from "./Loading";
 export const UserCard : FC = () => {
     const github:GithubInitialState  = useGithubContext();
     useEffect(() => {
@@ -13,6 +13,8 @@ export const UserCard : FC = () => {
         return <div>404?</div>
     }
 
+    if(github.loading)
+        return <Loading/>
 
 
     return <Card sx={root}>
